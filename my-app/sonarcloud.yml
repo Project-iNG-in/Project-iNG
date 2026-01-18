@@ -1,0 +1,6 @@
+sonar.projectKey=your_project_key
+sonar.projectName=my-app
+sonar.sources=src
+sonar.sourceEncoding=UTF-8
+sonar.exclusions=node_modules/**,dist/**,*.test.ts
+sonar.typescript.tsconfigPath=tsconfig.json
