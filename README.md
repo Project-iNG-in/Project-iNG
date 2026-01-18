@@ -1,6 +1,6 @@
 # Todo App
 
-A modern, responsive Todo application built with TypeScript and Vite.
+A modern, responsive Todo  application built with TypeScript and Vite.
 
 ## Quick Start
 
