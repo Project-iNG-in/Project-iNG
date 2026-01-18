@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1768737532677" clover="3.2.0">
-  <project timestamp="1768737532677" name="All files">
+<coverage generated="1768741527734" clover="3.2.0">
+  <project timestamp="1768741527734" name="All files">
     <metrics statements="88" coveredstatements="31" conditionals="40" coveredconditionals="12" methods="34" coveredmethods="11" elements="162" coveredelements="54" complexity="0" loc="88" ncloc="88" packages="1" files="2" classes="2"/>
-    <file name="main.ts" path="C:\Users\hp\OneDrive\Desktop\Project-iNG\Project-iNG\my-app\src\main.ts">
+    <file name="main.ts" path="C:\Users\hp\OneDrive\Desktop\Project-iNG\Project-iNG\src\main.ts">
       <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <line num="4" count="0" type="stmt"/>
       <line num="5" count="0" type="stmt"/>
     </file>
-    <file name="todos.ts" path="C:\Users\hp\OneDrive\Desktop\Project-iNG\Project-iNG\my-app\src\todos.ts">
+    <file name="todos.ts" path="C:\Users\hp\OneDrive\Desktop\Project-iNG\Project-iNG\src\todos.ts">
       <metrics statements="86" coveredstatements="31" conditionals="40" coveredconditionals="12" methods="34" coveredmethods="11"/>
       <line num="9" count="82" type="stmt"/>
       <line num="10" count="82" type="stmt"/>
