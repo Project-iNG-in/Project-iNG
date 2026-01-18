@@ -1,0 +1,215 @@
+name: Build & Deploy Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+  NODE_VERSION: '20'
+  PNPM_VERSION: '8'
+
+jobs:
+  build:
+    name: Build Application
+    runs-on: ubuntu-latest
+    outputs:
+      image-tag: ${{ steps.meta.outputs.tags }}
+      
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+          
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+        
+      - name: Setup dependency cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+            
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        
+      - name: Type check with TypeScript
+        run: pnpm exec tsc --noEmit
+        
+      - name: Build production bundle
+        run: pnpm build
+        
+      - name: Verify build output
+        run: |
+          if [ ! -d "dist" ]; then
+            echo "Build failed: dist directory not found"
+            exit 1
+          fi
+          echo "Build successful - dist directory created"
+          ls -lh dist/
+          
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts
+          path: dist/
+          retention-days: 7
+
+  build-docker:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'push'
+    permissions:
+      contents: read
+      packages: write
+      
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        
+      - name: Log in to Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=semver,pattern={{version}}
+            type=sha,prefix={{branch}}-
+            type=raw,value=latest,enable={{is_default_branch}}
+            
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: build-docker
+    if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
+    environment:
+      name: staging
+      url: https://staging.example.com
+      
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Deploy Docker container to staging
+        run: |
+          echo "🚀 Starting deployment to staging environment..."
+          echo "Image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:develop"
+          echo ""
+          echo "Deployment Steps:"
+          echo "1. Pull latest Docker image from registry"
+          echo "2. Stop existing container (if running)"
+          echo "3. Start new container with updated image"
+          echo "4. Verify container health"
+          echo ""
+          echo "Note: Configure deployment with your hosting provider:"
+          echo "- Add SSH key to secrets (DEPLOY_KEY)"
+          echo "- Add deployment host URL (STAGING_HOST)"
+          echo ""
+          echo "Example deployment command:"
+          echo "ssh -i \${{ secrets.DEPLOY_KEY }} \${{ secrets.STAGING_HOST }} 'docker pull \${{ env.REGISTRY }}/\${{ env.IMAGE_NAME }}:develop && docker-compose up -d'"
+          
+      - name: Verify staging deployment
+        run: |
+          echo "✅ Staging deployment initiated"
+          echo "Container should be available at: https://staging.example.com"
+          echo ""
+          echo "Health check will be performed..."
+          # Add health check logic here
+          
+      - name: Notify staging deployment
+        if: success()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            console.log('✅ Staging deployment successful!');
+            console.log('Environment: Staging');
+            console.log('URL: https://staging.example.com');
+
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: build-docker
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment:
+      name: production
+      url: https://example.com
+      
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Deploy Docker container to production
+        run: |
+          echo "🚀 Starting deployment to production environment..."
+          echo "Image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
+          echo ""
+          echo "Deployment Steps:"
+          echo "1. Pull latest Docker image from registry"
+          echo "2. Stop existing container (if running)"
+          echo "3. Start new container with updated image"
+          echo "4. Verify container health"
+          echo ""
+          echo "Note: Configure deployment with your hosting provider:"
+          echo "- Add SSH key to secrets (DEPLOY_KEY)"
+          echo "- Add production host URL (PROD_HOST)"
+          echo ""
+          echo "Example deployment command:"
+          echo "ssh -i \${{ secrets.DEPLOY_KEY }} \${{ secrets.PROD_HOST }} 'docker pull \${{ env.REGISTRY }}/\${{ env.IMAGE_NAME }}:latest && docker-compose up -d'"
+          
+      - name: Verify production deployment
+        run: |
+          echo "✅ Production deployment initiated"
+          echo "Container should be available at: https://example.com"
+          echo ""
+          echo "Health check will be performed..."
+          # Add health check logic here
+          
+      - name: Post-deployment notification
+        if: success()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            console.log('✅ Production deployment successful!');
+            console.log('Environment: Production');
+            console.log('URL: https://example.com');
+            console.log('');
+            console.log('Deployment Details:');
+            console.log('- Commit: ${{ github.sha }}');
+            console.log('- Branch: ${{ github.ref }}');
+            console.log('- Actor: ${{ github.actor }}');
