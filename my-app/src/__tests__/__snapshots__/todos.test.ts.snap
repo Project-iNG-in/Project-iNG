@@ -1,0 +1,212 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TodoApp HTML Escaping should escape HTML in todo title 1`] = `
+"<div class=\\"todo-container\\"><div class=\\"todo-header\\"><h1>My Tasks</h1><p class=\\"todo-subtitle\\">Stay productive and organized</p></div><div class=\\"todo-input-container\\"><input type=\\"text\\" class=\\"todo-input\\" placeholder=\\"Add a new task...\\" autocomplete=\\"off\\" /><button class=\\"add-todo-btn\\" aria-label=\\"Add todo\\"><svg width=\\"20\\" height=\\"20\\" viewBox=\\"0 0 24 24\\" fill=\\"none\\" stroke=\\"currentColor\\" stroke-width=\\"2\\"><line x1=\\"12\\" y1=\\"5\\" x2=\\"12\\" y2=\\"19\\"></line><line x1=\\"5\\" y1=\\"12\\" x2=\\"19\\" y2=\\"12\\"></line></svg></button></div><div class=\\"filter-container\\"><button class=\\"filter-btn active\\" data-filter=\\"all\\">All (1)</button><button class=\\"filter-btn\\" data-filter=\\"active\\">Active (1)</button><button class=\\"filter-btn\\" data-filter=\\"completed\\">Completed (0)</button></div><div class=\\"todos-list\\"><div class=\\"todo-item\\" data-id=\\"1\\"><input type=\\"checkbox\\" class=\\"todo-checkbox\\" /><span class=\\"todo-text\\">&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;</span><div class=\\"todo-actions\\"><button class=\\"edit-btn\\" aria-label=\\"Edit todo\\"><svg width=\\"16\\" height=\\"16\\" viewBox=\\"0 0 24 24\\" fill=\\"none\\" stroke=\\"currentColor\\" stroke-width=\\"2\\"><path d=\\"M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7\\"></path><path d=\\"M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z\\"></path></svg></button><button class=\\"delete-btn\\" aria-label=\\"Delete todo\\"><svg width=\\"16\\" height=\\"16\\" viewBox=\\"0 0 24 24\\" fill=\\"none\\" stroke=\\"currentColor\\" stroke-width=\\"2\\"><polyline points=\\"3 6 5 6 21 6\\"></polyline><path d=\\"M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2\\"></path><line x1=\\"10\\" y1=\\"11\\" x2=\\"10\\" y2=\\"17\\"></line><line x1=\\"14\\" y1=\\"11\\" x2=\\"14\\" y2=\\"17\\"></line></svg></button></div></div></div><div class=\\"todo-stats\\"><div class=\\"stat\\"><div class=\\"stat-number\\">1</div><div class=\\"stat-label\\">Total Tasks</div></div><div class=\\"stat\\"><div class=\\"stat-number\\">1</div><div class=\\"stat-label\\">To Do</div></div><div class=\\"stat\\"><div class=\\"stat-number\\">0</div><div class=\\"stat-label\\">Completed</div></div></div></div>"
+`;
+
+exports[`TodoApp Snapshot Tests should match snapshot for empty state 1`] = `
+"
+      <div class="todo-container">
+        <div class="todo-header">
+          <h1>My Tasks</h1>
+          <p class="todo-subtitle">Stay productive and organized</p>
+        </div>
+
+        <div class="todo-input-container">
+          <input type="text" class="todo-input" placeholder="Add a new task..." autocomplete="off">
+          <button class="add-todo-btn" aria-label="Add todo">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </button>
+        </div>
+
+        <div class="filter-container">
+          <button class="filter-btn active" data-filter="all">All (1)</button>
+          <button class="filter-btn" data-filter="active">Active (1)</button>
+          <button class="filter-btn" data-filter="completed">Completed (0)</button>
+        </div>
+
+        <div class="todos-list">
+          
+                    <div class="todo-item " data-id="1">
+                      <input type="checkbox" class="todo-checkbox">
+                      <span class="todo-text">Test todo</span>
+                      <div class="todo-actions">
+                        <button class="edit-btn" aria-label="Edit todo">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                          </svg>
+                        </button>
+                        <button class="delete-btn" aria-label="Delete todo">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  
+        </div>
+
+        
+
+        <div class="todo-stats">
+          <div class="stat">
+            <div class="stat-number">1</div>
+            <div class="stat-label">Total Tasks</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">1</div>
+            <div class="stat-label">To Do</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">0</div>
+            <div class="stat-label">Completed</div>
+          </div>
+        </div>
+      </div>
+    "
+`;
+
+exports[`TodoApp Snapshot Tests should match snapshot with completed todo 1`] = `
+"
+      <div class="todo-container">
+        <div class="todo-header">
+          <h1>My Tasks</h1>
+          <p class="todo-subtitle">Stay productive and organized</p>
+        </div>
+
+        <div class="todo-input-container">
+          <input type="text" class="todo-input" placeholder="Add a new task..." autocomplete="off">
+          <button class="add-todo-btn" aria-label="Add todo">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </button>
+        </div>
+
+        <div class="filter-container">
+          <button class="filter-btn active" data-filter="all">All (1)</button>
+          <button class="filter-btn" data-filter="active">Active (1)</button>
+          <button class="filter-btn" data-filter="completed">Completed (0)</button>
+        </div>
+
+        <div class="todos-list">
+          
+                    <div class="todo-item " data-id="1">
+                      <input type="checkbox" class="todo-checkbox">
+                      <span class="todo-text">Test todo</span>
+                      <div class="todo-actions">
+                        <button class="edit-btn" aria-label="Edit todo">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                          </svg>
+                        </button>
+                        <button class="delete-btn" aria-label="Delete todo">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  
+        </div>
+
+        
+
+        <div class="todo-stats">
+          <div class="stat">
+            <div class="stat-number">1</div>
+            <div class="stat-label">Total Tasks</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">1</div>
+            <div class="stat-label">To Do</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">0</div>
+            <div class="stat-label">Completed</div>
+          </div>
+        </div>
+      </div>
+    "
+`;
+
+exports[`TodoApp Snapshot Tests should match snapshot with todos 1`] = `
+"
+      <div class="todo-container">
+        <div class="todo-header">
+          <h1>My Tasks</h1>
+          <p class="todo-subtitle">Stay productive and organized</p>
+        </div>
+
+        <div class="todo-input-container">
+          <input type="text" class="todo-input" placeholder="Add a new task..." autocomplete="off">
+          <button class="add-todo-btn" aria-label="Add todo">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </button>
+        </div>
+
+        <div class="filter-container">
+          <button class="filter-btn active" data-filter="all">All (1)</button>
+          <button class="filter-btn" data-filter="active">Active (1)</button>
+          <button class="filter-btn" data-filter="completed">Completed (0)</button>
+        </div>
+
+        <div class="todos-list">
+          
+                    <div class="todo-item " data-id="1">
+                      <input type="checkbox" class="todo-checkbox">
+                      <span class="todo-text">Test todo</span>
+                      <div class="todo-actions">
+                        <button class="edit-btn" aria-label="Edit todo">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                          </svg>
+                        </button>
+                        <button class="delete-btn" aria-label="Delete todo">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  
+        </div>
+
+        
+
+        <div class="todo-stats">
+          <div class="stat">
+            <div class="stat-number">1</div>
+            <div class="stat-label">Total Tasks</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">1</div>
+            <div class="stat-label">To Do</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">0</div>
+            <div class="stat-label">Completed</div>
+          </div>
+        </div>
+      </div>
+    "
+`;
